@@ -77,7 +77,7 @@ const generateNextWorld  = function(initialWorld) {
   return nextWorld;
 }
 
-const getAliveCellsOfNextGeneration = function(nextWorld, height,width) { 
+const getAliveCellsOfNextGeneration = function(nextWorld,width,height) { 
   let result = [];
   for(let rowIndex = 0; rowIndex < width; rowIndex++) {
     for(let colomnIndex = 0; colomnIndex < height; colomnIndex++) {

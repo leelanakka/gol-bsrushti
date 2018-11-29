@@ -23,12 +23,18 @@ describe('nextGeneration',() => {
 
   it('should generate next generation as same as the present generation',()=>{
     let currentGeneration = [[0,1],[0,2],[1,0],[1,3],[2,1],[2,2]];
-    let bounds = { topLeft: [0,0], bottomRight: [3,4]};
+    let bounds = { topLeft: [0,0], bottomRight: [2,3]};
     let expectedNextGen = [[0,1],[0,2],[1,0],[1,3],[2,1],[2,2]];
     let actualNextGen = nextGeneration(currentGeneration,bounds);
     assert.deepEqual(actualNextGen, expectedNextGen);
   });
-
+  it('should generate next generation as same as the present generation',()=>{
+    let currentGeneration = [[0,2],[0,3],[1,1],[1,4],[2,2],[2,3]];
+    let bounds = { topLeft: [0,0], bottomRight: [4,4]};
+    let expectedNextGen =  [[0,2],[0,3],[1,1],[1,4],[2,2],[2,3]];
+    let actualNextGen = nextGeneration(currentGeneration,bounds);
+    assert.deepEqual(actualNextGen, expectedNextGen);
+  });
   it('should generate a vertical blinker as the next step of a horizontal blinker',() => {
     let currentGeneration = [[0,1],[1,1],[2,1]];
     let expectedNextGen = [[1,0],[1,1],[1,2]]
