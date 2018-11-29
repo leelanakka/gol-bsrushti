@@ -139,7 +139,7 @@ const nextGeneration = function(currGeneration,bounds) {
   let {height, width} = getDimension(bounds);
   let filteredCurrentGeneration = currGeneration.filter((x) => filterInputs(x,cellCoordinates(bounds)));
   filteredCurrentGeneration = filteredCurrentGeneration.map(cell => [cell[0]-topLeft[0],cell[1]-topLeft[1]]);
-  let grid = generateWorld(initialGrid(height,width),filteredCurrentGeneration);
+  let grid = generateWorld(initialGrid(width,height),filteredCurrentGeneration);
   let nextWorld = generateNextWorld(grid);
   return getAliveCellsOfNextGeneration(nextWorld, height, width).map(cell => [cell[0]+topLeft[0],cell[1]+topLeft[1]]);
 }
