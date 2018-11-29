@@ -44,9 +44,9 @@ describe('nextGeneration',() => {
     assert.ok(isSameArity(actualNextGen,expectedNextGen));
   });
   it('should generate next generation for rectangle pattern of 2*4',()=>{
-    let currentGeneration = [[0,0],[0,1],[1,0],[3,1],[4,0],[4,1]];
-    let bounds = { topLeft: [0,0], bottomRight: [4,1]};
-    let expectedNextGen =   [[0,0],[0,1],[1,0],[1,1],[3,0],[3,1],[4,0],[4,1]];
+    let currentGeneration = [[0,1],[0,2],[1,0],[1,3],[2,1],[2,2]];
+    let bounds = { topLeft: [0,0], bottomRight: [2,3]};
+    let expectedNextGen =   [[0,1],[0,2],[1,0],[1,3],[2,1],[2,2]];
     let actualNextGen = nextGeneration(currentGeneration,bounds);
     assert.deepEqual(actualNextGen, expectedNextGen);
   });
