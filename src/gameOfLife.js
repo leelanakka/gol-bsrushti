@@ -120,18 +120,23 @@ const filterInputs = function(array,list) {
 };
 
 const cellCoordinates = function(bounds){
-  let height = bounds.bottomRight[0]-bounds.topLeft[0]+1;
-  let width = bounds.bottomRight[1]-bounds.topLeft[1]+1;
+  let {height, width} = getDimension(bounds);
   let rowCoordinate = getCoordinates(height, bounds.topLeft[0]);
   let columnCoordinate = getCoordinates(width, bounds.topLeft[1]);
   let result  = cartesian(rowCoordinate, columnCoordinate);
   return result;
 };
 
+const getDimension = function(bounds) { 
+  return {
+    height : bounds.bottomRight[0]-bounds.topLeft[0]+1,
+    width : bounds.bottomRight[1]-bounds.topLeft[1]+1
+  }
+};
+
 const nextGeneration = function(currGeneration,bounds) {
   let {topLeft, bottomRight} = bounds;
-  let height = bottomRight[0]-topLeft[0]+1;
-  let width = bottomRight[1]-topLeft[1]+1;
+  let {height, width} = getDimension(bounds);
   let filteredCurrentGeneration = currGeneration.filter((x) => filterInputs(x,cellCoordinates(bounds)));
   filteredCurrentGeneration = filteredCurrentGeneration.map(cell => [cell[0]-topLeft[0],cell[1]-topLeft[1]]);
   let grid = generateWorld(initialGrid(height,width),filteredCurrentGeneration);
