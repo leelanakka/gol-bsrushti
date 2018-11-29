@@ -1,5 +1,5 @@
 const initialGrid = function(height,width) {
-  let grid = new Array(height).fill(width).map(x => new Array(x).fill(0));
+  let grid = new Array(width).fill(height).map(x => new Array(x).fill(0));
   return grid;
 };
 
@@ -61,8 +61,8 @@ const totalAliveNeighbors = function(cell, grid) {
 };
 
 const checkForNextGenration = function(currentCellState,neighbourLength) {
-  let rules = [[0,0,0,1,0,0,0,0,0],[0,0,1,1,0,0,0,0,0]];
-  return rules[currentCellState][neighbourLength];
+  let rules = [0,0,currentCellState,1,0,0,0,0,0];
+  return rules[neighbourLength];
 };
 
 const generateNextWorld  = function(initialWorld) {
