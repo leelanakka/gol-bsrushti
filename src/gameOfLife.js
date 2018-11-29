@@ -1,5 +1,5 @@
-const initialGrid = function(size) {
-  let grid = new Array(size).fill(size).map(x => new Array(x).fill(0));
+const initialGrid = function(height,width) {
+  let grid = new Array(height).fill(width).map(x => new Array(x).fill(0));
   return grid;
 };
 
@@ -24,9 +24,8 @@ const checkRangeForNegativeNumbers = function(cell) {
 
 const cartesian = function(set1,set2) {
   let resultSet = [];
-  let length = set1.length;
-  for(let rowIndex = 0; rowIndex < length; rowIndex++) {
-    for(let columnIndex = 0; columnIndex < length; columnIndex++) {
+  for(let rowIndex = 0; rowIndex < set1.length; rowIndex++) {
+    for(let columnIndex = 0; columnIndex < set2.length; columnIndex++) {
       resultSet.push([set1[rowIndex],set2[columnIndex]]);
     };
   };
@@ -78,10 +77,10 @@ const generateNextWorld  = function(initialWorld) {
   return nextWorld;
 }
 
-const getAliveCellsOfNextGeneration = function(nextWorld, size) { 
+const getAliveCellsOfNextGeneration = function(nextWorld, height,width) { 
   let result = [];
-  for(let rowIndex = 0; rowIndex < size; rowIndex++) {
-    for(let colomnIndex = 0; colomnIndex < size; colomnIndex++) {
+  for(let rowIndex = 0; rowIndex < width; rowIndex++) {
+    for(let colomnIndex = 0; colomnIndex < height; colomnIndex++) {
       if(nextWorld[rowIndex][colomnIndex] == 1) {
         result.push([rowIndex,colomnIndex]);
       };
@@ -90,11 +89,54 @@ const getAliveCellsOfNextGeneration = function(nextWorld, size) {
   return result;
 };
 
+const fillArray = function(filler){
+  return function(length) {
+    return new Array(length).fill(filler);
+  }
+};
+
+const makeCounterFromN = function(start) {
+  let counter = start;
+  return function (){
+    return counter++;
+  }
+};
+
+const getCoordinates = function(length, initial) { 
+  let result = [];
+  for(let index = 0; index < length; index++ ) { 
+    result.push(initial);
+    initial += 1;
+  };
+  return result;
+};
+
+const filterInputs = function(array,list) { 
+  return list.some((element) => {
+    let result1 = element.every(x=> array.includes(x));
+    let result2 = array.every(x=> element.includes(x));
+    return result1 && result2;
+  });
+};
+
+const cellCoordinates = function(bounds){
+  let height = bounds.bottomRight[0]-bounds.topLeft[0]+1;
+  let width = bounds.bottomRight[1]-bounds.topLeft[1]+1;
+  let rowCoordinate = getCoordinates(height, bounds.topLeft[0]);
+  let columnCoordinate = getCoordinates(width, bounds.topLeft[1]);
+  let result  = cartesian(rowCoordinate, columnCoordinate);
+  return result;
+};
+
 const nextGeneration = function(currGeneration,bounds) {
-  let size = bounds.bottomRight[0];
-  let grid = generateWorld(initialGrid(size),currGeneration);
+  let {topLeft, bottomRight} = bounds;
+  let height = bottomRight[0]-topLeft[0]+1;
+  let width = bottomRight[1]-topLeft[1]+1;
+  let filteredCurrentGeneration = currGeneration.filter((x) => filterInputs(x,cellCoordinates(bounds)));
+  filteredCurrentGeneration = filteredCurrentGeneration.map(cell => [cell[0]-topLeft[0],cell[1]-topLeft[1]]);
+  let grid = generateWorld(initialGrid(height,width),filteredCurrentGeneration);
   let nextWorld = generateNextWorld(grid);
-  return getAliveCellsOfNextGeneration(nextWorld, size);
+  return getAliveCellsOfNextGeneration(nextWorld, height, width).map(cell => [cell[0]+topLeft[0],cell[1]+topLeft[1]]);
 }
 
 module.exports = { nextGeneration };
