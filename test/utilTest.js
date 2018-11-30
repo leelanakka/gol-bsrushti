@@ -3,20 +3,14 @@ const {
   initialGrid,
   isCoordinatesGreaterThanBoard,
   generateWorld,
-  predicate,
-  checkRangeForNegativeNumbers,
   cartesian,
   validNeighbors,
   findingNeighbors,
   checkForAlive,
   totalAliveNeighbors,
-  checkForNextGenration,
   generateNextWorld,
   getAliveCellsOfNextGeneration,
   fillArray,
-  makeCounterFromN,
-  getCoordinates,
-  filterInputs,
   cellCoordinates,
   getDimension
 } =  require('../src/util.js'); 
@@ -124,6 +118,16 @@ describe('getAliveCellsOfNextGeneration', () => {
   it('should return alive cell co-ordinates',()=>{
     deepEqual(getAliveCellsOfNextGeneration([[0,0,0],[0,0,1],[0,0,0]],3,3),[[1,2]]);
     deepEqual(getAliveCellsOfNextGeneration([[0,0,0],[1,1,1],[0,0,0]],3,3),[[1,0],[1,1],[1,2]]);
+  });
+});
+
+describe('cellCoordinates', () => {
+  it('should return nothing for giving empty bounds',() => {
+    deepEqual(cellCoordinates({topLeft: [], bottomRight: []}),[]);
+  });
+  it('should return all the cell coordinates which lies in given bound',() => {
+    deepEqual(cellCoordinates({topLeft: [0,0], bottomRight: [1,1]}),[[0,0],[0,1],[1,0],[1,1]]);
+    deepEqual(cellCoordinates({topLeft: [0,0], bottomRight: [2,2]}),[[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]);
   });
 });
 

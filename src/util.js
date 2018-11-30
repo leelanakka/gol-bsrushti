@@ -137,20 +137,15 @@ module.exports = {
   initialGrid,
   isCoordinatesGreaterThanBoard,
   generateWorld,
-  predicate,
-  checkRangeForNegativeNumbers,
   cartesian,
   validNeighbors,
   findingNeighbors,
   checkForAlive,
   totalAliveNeighbors,
-  checkForNextGenration,
   generateNextWorld,
   getAliveCellsOfNextGeneration,
   fillArray,
-  makeCounterFromN,
-  getCoordinates,
-  filterInputs,
   cellCoordinates,
-  getDimension
+  getDimension,
+  filterInputs
 };
