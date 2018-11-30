@@ -67,7 +67,7 @@ const checkForNextGenration = function(currentCellState,neighbourLength) {
 const generateNextWorld  = function(initialWorld) {
   let nextWorld = initialWorld.map(x=>x.slice());
   for( let index = 0; index < initialWorld.length; index ++) {
-    for(let i = 0; i < initialWorld.length; i++ ) {
+    for(let i = 0; i < initialWorld[0].length; i++ ) {
       let noOfAliveNeighbours = totalAliveNeighbors([index,i],initialWorld);
       let nextState = checkForNextGenration(initialWorld[index][i],noOfAliveNeighbours);
       nextWorld[index][i] = nextState;

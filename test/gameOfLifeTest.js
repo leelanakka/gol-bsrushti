@@ -21,6 +21,22 @@ describe('nextGeneration',() => {
     assert.deepEqual(actualNextGen, expectedNextGen);
   });
 
+  it('should handle for negative co-ordinates ',()=> {
+    let currentGeneration = [[-1,0],[0,-1],[0,0]];
+    let bounds = { topLeft: [-1,-1], bottomRight: [0,0]};
+    let expectedNextGen = [[-1,-1],[-1,0],[0,-1],[0,0]];
+    let actualNextGen = nextGeneration(currentGeneration,bounds);
+    assert.deepEqual(actualNextGen, expectedNextGen);
+  });
+
+  it('should handle for negative co-ordinates for rectangle',()=> {
+    let currentGeneration = [[-2,-5],[-1,-6],[-1,-4]];
+    let bounds = { topLeft: [-2,-6], bottomRight: [-1,-4]};
+    let expectedNextGen = [[-2,-5],[-1,-5]];
+    let actualNextGen = nextGeneration(currentGeneration,bounds);
+    assert.deepEqual(actualNextGen, expectedNextGen);
+  });
+
   it('should generate next generation as same as the present generation',()=>{
     let currentGeneration = [[0,1],[0,2],[1,0],[1,3],[2,1],[2,2]];
     let bounds = { topLeft: [0,0], bottomRight: [3,3]};
