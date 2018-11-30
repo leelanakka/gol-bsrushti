@@ -1,5 +1,7 @@
+let horizontalCharacter = String.fromCharCode(9473);
+let verticalCharacter = String.fromCharCode(9475);
 const initialGrid = function(height,width) {
-  let grid = new Array(width).fill(height).map(x => new Array(x).fill(0));
+  let grid = new Array(width).fill(height).map(x => new Array(x).fill(" "));
   return grid;
 };
 
@@ -9,7 +11,7 @@ const isCoordinatesGreaterThanBoard = function(boardSize, cell) {
 
 const generateWorld  = function(grid,aliveCells) {
   for(let aliveCell of aliveCells) {
-    grid[aliveCell[0]][aliveCell[1]] = 1;
+    grid[aliveCell[0]][aliveCell[1]] = "*";
   };
   return grid;
 };
@@ -49,7 +51,7 @@ const findingNeighbors = function(size, cell) {
 };
 
 const checkForAlive = function(grid, neighbour) {
-  return grid[neighbour[0]][neighbour[1]] == 1;
+  return grid[neighbour[0]][neighbour[1]] == "*";
 };
 
 const totalAliveNeighbors = function(cell, grid) {
@@ -60,7 +62,7 @@ const totalAliveNeighbors = function(cell, grid) {
 };
 
 const checkForNextGenration = function(currentCellState,neighbourLength) {
-  let rules = [0,0,currentCellState,1,0,0,0,0,0];
+  let rules = [" "," ",currentCellState,"*"," "," "," "," "," "];
   return rules[neighbourLength];
 };
 
@@ -80,7 +82,7 @@ const getAliveCellsOfNextGeneration = function(nextWorld,width,height) {
   let result = [];
   for(let rowIndex = 0; rowIndex < width; rowIndex++) {
     for(let colomnIndex = 0; colomnIndex < height; colomnIndex++) {
-      if(nextWorld[rowIndex][colomnIndex] == 1) {
+      if(nextWorld[rowIndex][colomnIndex] == "*") {
         result.push([rowIndex,colomnIndex]);
       };
     };
@@ -148,16 +150,16 @@ const fillArray = function(filler){
 };
 
 const xAxis = function(length) { 
-  let axis = fillConsecutiveNumbersArray(length).map(addSpaces).join("|");
-  axis = [" |" + axis + "|"]; 
+  let axis = fillConsecutiveNumbersArray(length).map(addSpaces).join(verticalCharacter);
+  axis = [" "+verticalCharacter + axis + verticalCharacter]; 
   axis =  axis.concat(dashline(length));
   return axis;
 };
 
 const createRow = function(array, currRow){
   let row = [];
-  let column = array.map(addSpaces).join("|");
-  let cell = currRow + "|"+ column +"|";
+  let column = array.map(addSpaces).join(verticalCharacter);
+  let cell = currRow + verticalCharacter+ column +verticalCharacter;
   row.push(cell);
   row.push(dashline(array.length));
   return row;
@@ -167,7 +169,7 @@ const dashline = function(length){
   if(length==0){
     return "";
   };
-  return fillArray("-")(length*4+2).join("");
+  return fillArray(horizontalCharacter)(length*4+2).join("");
 };
 
 const addSpaces = function(text){

@@ -1,4 +1,6 @@
 const {deepEqual, equal} = require('assert');
+let horizontalCharacter = String.fromCharCode(9473);
+let verticalCharacter = String.fromCharCode(9475);
 const {
   initialGrid,
   isCoordinatesGreaterThanBoard,
@@ -28,11 +30,11 @@ describe('initialGrid', () => {
 
 describe('generateWorld', () => {
   it('should return the grid of length one',()=>{
-    let expectedOutput = [ [ 1 ] ];
+    let expectedOutput = [ [ "*" ] ];
     deepEqual(generateWorld(initialGrid(1,1),[[0,0]]),expectedOutput);
   });
   it('should return the grid as per the length',()=>{
-    let expectedOutput = [ [ 1, 0, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ]; 
+    let expectedOutput = [ [ "*", " ", " ", " " ], [ " ", "*", " ", " " ], [ " ", " ", " ", " " ], [ " ", " ", " ", " " ] ]; 
     deepEqual(generateWorld(initialGrid(4,4),[[0,0],[1,1]]),expectedOutput);
   });
 });
@@ -73,18 +75,18 @@ describe('findingNeighbors', () => {
 describe('totalAliveNeighbors', () => {
   it('should return total number of alive neighbours of given cell',()=>{
     let expectedOutput = 1;
-    deepEqual(totalAliveNeighbors([0,0], [[1,0,0],[0,1,0],[1,0,0]]),expectedOutput);
+    deepEqual(totalAliveNeighbors([0,0], [["*"," "," "],[" ","*"," "],["*"," "," "]]),expectedOutput);
     expectedOutput = 2; 
-    deepEqual(totalAliveNeighbors([1,0], [[1,0,0],[0,1,0],[0,0,1]]),expectedOutput);
+    deepEqual(totalAliveNeighbors([1,0], [["*"," "," "],[" ","*"," "],[" "," ","*"]]),expectedOutput);
   });
 });
 
 describe('generateNextWorld', () => {
   it('should return next generation for given grid',()=>{
-    let expectedOutput = [ [ 0, 0 ], [ 0, 0 ] ]; 
-    deepEqual(generateNextWorld([[0,0],[1,0]]),expectedOutput);
-    expectedOutput = [ [ 1, 1, 1 ], [ 1, 1, 1 ], [ 0, 1, 0 ] ]; 
-    deepEqual(generateNextWorld([[0,1,0],[1,1,1],[0,0,0]]),expectedOutput);
+    let expectedOutput = [ [ " ", " " ], [ " ", " " ] ]; 
+    deepEqual(generateNextWorld([[" "," "],["*"," "]]),expectedOutput);
+    expectedOutput = [ [ "*", "*", "*" ], [ "*", "*", "*" ], [ " ", "*", " " ] ]; 
+    deepEqual(generateNextWorld([[" ","*"," "],["*","*","*"],[" "," "," "]]),expectedOutput);
   });
 });
 
@@ -97,15 +99,15 @@ describe('isCoordinatesGreaterThanBoard', () => {
 
 describe('checkForAlive', () => {
   it('should return true if cell live in given board',()=>{
-    deepEqual(checkForAlive([[0,0],[1,0]],[1,0]), true);
-    deepEqual(checkForAlive([[0,0,0],[1,1,1],[0,0,0]],[2,2]), false);
+    deepEqual(checkForAlive([[" "," "],["*"," "]],[1,0]), true);
+    deepEqual(checkForAlive([[" "," "," "],["*","*","*"],[" "," "," "]],[2,2]), false);
   });
 });
 
 describe('getAliveCellsOfNextGeneration', () => {
   it('should return alive cell co-ordinates',()=>{
-    deepEqual(getAliveCellsOfNextGeneration([[0,0,0],[0,0,1],[0,0,0]],3,3),[[1,2]]);
-    deepEqual(getAliveCellsOfNextGeneration([[0,0,0],[1,1,1],[0,0,0]],3,3),[[1,0],[1,1],[1,2]]);
+    deepEqual(getAliveCellsOfNextGeneration([[" "," "," "],[" "," ","*"],[" "," "," "]],3,3),[[1,2]]);
+    deepEqual(getAliveCellsOfNextGeneration([[" "," "," "],["*","*","*"],[" "," "," "]],3,3),[[1,0],[1,1],[1,2]]);
   });
 });
 
@@ -126,34 +128,3 @@ describe('getDimension', () => {
     deepEqual(getDimension({topLeft: [0,0], bottomRight: [2,2]}),{height:3, width:3});
   });
 });
-
-describe('printBoard', () => {
-  it('should return empty board', () => {
-    deepEqual(printBoard([[]]),[""]);
-  });
-
-  it('should return board with size 2*2 if input is array containing 2 arrays', () => {
-    let expectedOutput = [ ' | 0 | 1 |',
-                           '----------',
-                           '0| 3 | 4 |',
-                           '----------' ];
-    deepEqual(printBoard([[3,4]]),expectedOutput);
-  });
-
-  it('should return board with size 4*4 if input is array containing 2 arrays', () => {
-    let expectedOutput = [ ' | 0 | 1 | 2 | 3 |',
-                           '------------------',
-                           '0| 1 | 2 | 3 | 4 |',
-                           '------------------',
-                           '1| 4 | 5 | 6 | 7 |',
-                           '------------------',
-                           '2| 8 | 9 | 0 | 1 |',
-                           '------------------',
-                           '3| 2 | 3 | 4 | 5 |',
-                           '------------------' ];
-    deepEqual(printBoard([[1,2,3,4],[4,5,6,7],[8,9,0,1],[2,3,4,5]]),expectedOutput);
-  });
-});
-
-
-
