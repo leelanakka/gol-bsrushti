@@ -127,9 +127,18 @@ describe('cellCoordinates', () => {
   });
   it('should return all the cell coordinates which lies in given bound',() => {
     deepEqual(cellCoordinates({topLeft: [0,0], bottomRight: [1,1]}),[[0,0],[0,1],[1,0],[1,1]]);
-    deepEqual(cellCoordinates({topLeft: [0,0], bottomRight: [2,2]}),[[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]);
+    let expectedOutput = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]];
+    deepEqual(cellCoordinates({topLeft: [0,0], bottomRight: [2,2]}), expectedOutput);
   });
 });
+
+describe('getDimension', () => {
+  it('should return dimension of given board',() => {
+    deepEqual(getDimension({topLeft: [0,0], bottomRight: [0,0]}),{height:1, width:1});
+    deepEqual(getDimension({topLeft: [0,0], bottomRight: [2,2]}),{height:3, width:3});
+  });
+});
+
 
 
 
