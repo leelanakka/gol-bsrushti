@@ -10,22 +10,9 @@ const {
   totalAliveNeighbors,
   generateNextWorld,
   getAliveCellsOfNextGeneration,
-  fillArray,
   cellCoordinates,
   getDimension
 } =  require('../src/util.js'); 
-
-describe('fillArray',()=>{
-  it('should return empty array for 0 as input',()=>{
-    deepEqual(fillArray()(0),[]);
-  });
-  it('should return array for given size and fill that as per input',()=>{
-    deepEqual(fillArray(0)(1),[0]);
-  });
-  it('should return array for given size and fill that as per input',()=>{
-    deepEqual(fillArray("a")(2),["a","a"]);
-  });
-});
 
 describe('initialGrid', () => {
   it('should return the intial grid as per the length',()=>{

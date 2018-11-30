@@ -88,19 +88,6 @@ const getAliveCellsOfNextGeneration = function(nextWorld,width,height) {
   return result;
 };
 
-const fillArray = function(filler){
-  return function(length) {
-    return new Array(length).fill(filler);
-  }
-};
-
-const makeCounterFromN = function(start) {
-  let counter = start;
-  return function (){
-    return counter++;
-  }
-};
-
 const getCoordinates = function(length, initial) { 
   let result = [];
   for(let index = 0; index < length; index++ ) { 
@@ -144,7 +131,6 @@ module.exports = {
   totalAliveNeighbors,
   generateNextWorld,
   getAliveCellsOfNextGeneration,
-  fillArray,
   cellCoordinates,
   getDimension,
   filterInputs
