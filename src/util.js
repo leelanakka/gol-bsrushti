@@ -151,7 +151,7 @@ const fillArray = function(filler){
 
 const xAxis = function(length) { 
   let axis = fillConsecutiveNumbersArray(length).map(addSpaces).join(verticalCharacter);
-  axis = [" "+verticalCharacter + axis + verticalCharacter]; 
+  axis = [verticalCharacter + axis + verticalCharacter]; 
   axis =  axis.concat(dashline(length));
   return axis;
 };
