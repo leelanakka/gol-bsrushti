@@ -128,11 +128,11 @@ const printBoard = function(array){
   if(array[0].length == 0){
     return [""];
   }
-  board = board.concat(xAxis(length));
+  board = board.concat(dashline(length));
   for(let row = 0; row < array.length; row++){
     board = board.concat(createRow(array[row], row));
   };
-  return board;
+  return board.concat(dashline(length));
 };
 
 const fillConsecutiveNumbersArray = function(limit){
@@ -159,9 +159,8 @@ const xAxis = function(length) {
 const createRow = function(array, currRow){
   let row = [];
   let column = array.map(addSpaces).join(verticalCharacter);
-  let cell = currRow + verticalCharacter+ column +verticalCharacter;
+  let cell = verticalCharacter+ column +verticalCharacter;
   row.push(cell);
-  row.push(dashline(array.length));
   return row;
 }
 
@@ -169,7 +168,7 @@ const dashline = function(length){
   if(length==0){
     return "";
   };
-  return fillArray(horizontalCharacter)(length*4+2).join("");
+  return fillArray(horizontalCharacter)(length*4+1).join("");
 };
 
 const addSpaces = function(text){
